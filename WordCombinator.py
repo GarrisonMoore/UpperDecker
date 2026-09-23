@@ -1,19 +1,20 @@
 import random
 from multiprocessing import process
 
+# a list to store all possible words. Used to select a random index / word later
 possible_words = []
 # variable to change words per line inside the txt file
 words_per_line = 10
 
 def write_random_words():
-
+    """Method reads Words.txt which contains almost all english words in existence, writes 100 random words to a file in a paragraph."""
     # read the file and store words in the list
     try:
         with open('Words.txt', 'r') as word_stream:
             # loop through the lines and strip ansii codes
             for line in word_stream:
                 cleaned_line = line.rstrip('\r\n')
-                # appemd cleaned lines to the list
+                # append cleaned lines to the list
                 possible_words.append(cleaned_line)
 
     except OSError:
@@ -35,13 +36,14 @@ def write_random_words():
         return
 
 def remove_spaces():
+    """Method removes spaces from the CombinedWords.txt file"""
     try:
-        # open the combined words file
+        # open the combined words file in read mode
         with open("CombinedWords.txt", 'r') as combined_words:
             # assign lines to lines
             lines = combined_words.readlines()
-
-        with open("Spaces_Removed.txt", 'w') as spaces_removed:
+        # open the CombinedWords.txt file in write mode
+        with open("CombinedWords.txt", 'w') as spaces_removed:
             # loop through each line and remove spaces
             for line in lines:
                 cleaned_line = line.replace(" ","")
@@ -50,7 +52,7 @@ def remove_spaces():
     except OSError:
         return
 
-
+# Terminal loop
 while True:
     remove_space_input = input("Write a book? (y/n)")
     if remove_space_input == "y":
